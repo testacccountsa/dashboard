@@ -1,0 +1,189 @@
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+  Menu,
+  ArrowLeft,
+  UserCircle,
+  CreditCard,
+  Globe,
+  X,
+  Search,
+  FileText
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+interface VehicleData {
+  brand: string;
+  plateNo: string;
+  model: string;
+  modelGroup: string;
+  modelDescription: string;
+  kmReading: string;
+  engineNo: string;
+  engineSize: string;
+  exteriorColor: string;
+  katashiki: string;
+  vin: string;
+  nextServiceDate: string;
+  purchasedFrom: string;
+}
+
+export const CustomerDetails = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeSidebar, setActiveSidebar] = useState("sales");
+  const [expandedNBA, setExpandedNBA] = useState(true);
+  const [expandedVehicle, setExpandedVehicle] = useState(true);
+  const [currentVehicleIndex, setCurrentVehicleIndex] = useState(0);
+
+  const vehicles: VehicleData[] = [
+    {
+      brand: "Toyota",
+      plateNo: "DUB86530",
+      model: "TYYA02P15AP3RA16",
+      modelGroup: "Yaris Sedan",
+      modelDescription: "16 YA SDN P 1.5L AT SE+ RA",
+      kmReading: "60871.0",
+      engineNo: "Z308532",
+      engineSize: "1.5 L",
+      exteriorColor: "SUPER WHITE",
+      katashiki: "NCP150L-CEPGKV",
+      vin: "MHFBT9F32G6062243",
+      nextServiceDate: "28-12-2018",
+      purchasedFrom: "TY-Sharjah Wadha U.Units"
+    }
+  ];
+
+  const currentVehicle = vehicles[currentVehicleIndex];
+
+  const sidebarItems = [
+    { id: "sales", label: "SALES", icon: "🛒" },
+    { id: "aftersales", label: "AFTER SALES", icon: "🔧" },
+    { id: "complaints", label: "COMPLAINTS", icon: "📋" },
+    { id: "roadside", label: "ROADSIDE ASSISTANCE", icon: "🚗" },
+    { id: "enquiry", label: "GENERAL ENQUIRY", icon: "💬" },
+    { id: "other", label: "OTHER ACTIONS", icon: "📱" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="sticky top-0 z-40 text-white bg-gradient-to-r from-[#003087] via-[#002670] to-[#001c4d] border-b border-[#002670]/50">
+        <div className="container mx-auto px-6 py-3.5 flex flex-wrap justify-between items-center gap-4">
+          <div className="flex items-center gap-6">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/20 rounded-xl transition-all duration-200 focus:bg-white/20 focus:outline-none"
+              onClick={() => navigate("/")}
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            <div className="flex items-center gap-4">
+              <img 
+                src="https://www.alfuttaim.com/wp-content/uploads/sites/22/2024/12/AF-logo.svg"
+                alt="Al-Futtaim Logo" 
+                className="h-8 w-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="flex min-h-[calc(100vh-57px)]">
+        {/* Sidebar */}
+        <aside className="bg-[#003087] w-[88px] shrink-0 flex flex-col shadow-lg">
+          <div className="py-2">
+            {sidebarItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveSidebar(item.id)}
+                className={`flex flex-col items-center justify-center w-full py-4 px-2 text-white text-xs font-medium transition-all border-l-[3px] border-transparent group ${
+                  activeSidebar === item.id 
+                    ? "bg-[#002670] border-l-white" 
+                    : "hover:bg-[#002670]/60 hover:border-l-white/50"
+                }`}
+              >
+                <span className="text-2xl mb-2.5 opacity-80 group-hover:opacity-100 transition-opacity">{item.icon}</span>
+                <span className="text-center whitespace-pre-line leading-tight opacity-90 group-hover:opacity-100 transition-opacity">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 bg-gray-50/50">
+          <div className="container mx-auto px-6 py-6">
+            <div className="grid gap-6">
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-[#003087]">Vehicle Information</h2>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setExpandedVehicle(!expandedVehicle)}
+                  >
+                    {expandedVehicle ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                
+                {expandedVehicle && (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-500">Brand</p>
+                        <p className="font-medium">{currentVehicle.brand}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">Model</p>
+                        <p className="font-medium">{currentVehicle.model}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">Plate No</p>
+                        <p className="font-medium">{currentVehicle.plateNo}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </Card>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      {/* Floating Action Buttons */}
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
+        <Button
+          size="icon"
+          className="w-12 h-12 rounded-full shadow-lg hover:opacity-90 bg-[#003087] text-white"
+        >
+          <X className="h-6 w-6" />
+        </Button>
+        <Button
+          size="icon"
+          className="w-12 h-12 rounded-full shadow-lg hover:opacity-90 bg-[#003087] text-white"
+        >
+          <Search className="h-6 w-6" />
+        </Button>
+        <Button
+          size="icon"
+          className="w-12 h-12 rounded-full shadow-lg hover:opacity-90 bg-[#003087] text-white"
+        >
+          <FileText className="h-6 w-6" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default CustomerDetails;

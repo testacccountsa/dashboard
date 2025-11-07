@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optimize for iframe embedding */
+
+/* Responsive base font sizing */
+html {
+  font-size: clamp(14px, 0.9rem + 0.4vw, 18px);
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbars if not needed */
+body::-webkit-scrollbar {
+  width: 0 !important;
+  background: transparent;
+}
+
+/* Prevent scroll issues in Genesys Cloud iframe */
+body.iframe-embedded {
+  overflow-y: auto;
+  height: auto;
+  min-height: 100vh;
+}
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 24% 98%; /* soft off-white */
+    --foreground: 215 18% 12%; /* near-black for text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 18% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 18% 12%;
+
+    --primary: 218 88% 55%; /* vivid blue */
+    --primary-dark: 218 88% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 195 100% 40%; /* cyan-teal accent */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 96%; /* subtle gray background for sections */
+    --muted-foreground: 215 12% 45%;
+
+    --accent: 145 60% 45%; /* green accent */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 78% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 34 100% 55%;
+    --warning-foreground: 0 0% 10%;
+
+    --success: 140 40% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 218 88% 60%;
+
+    --radius: 0.75rem;
+
+    --gradient-header: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --shadow-elevated: 0 6px 18px hsl(215 18% 12% / 0.08);
+    --shadow-floating: 0 8px 24px hsl(215 18% 12% / 0.12);
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 13%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 13%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 54% 51%;
+    --primary-dark: 210 54% 41%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 100% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 140 50% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --warning: 36 100% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --success: 122 39% 49%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 356 91% 49%;
+
+    --gradient-header: linear-gradient(135deg, hsl(210 100% 40%), hsl(210 100% 30%));
+    --shadow-elevated: 0 2px 8px hsl(0 0% 0% / 0.3);
+    --shadow-floating: 0 4px 16px hsl(0 0% 0% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
