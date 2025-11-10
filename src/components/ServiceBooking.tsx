@@ -1770,8 +1770,10 @@ export default function ServiceBookingFormPage({ vehicle }: ServiceBookingFormPa
           </div>
         </Card>
       )}
+
     <Card className="p-6 space-y-6 max-w-3xl mx-auto">
       <h2 className="text-2xl font-bold">Service Booking</h2>
+      <div className="bg-[#f0f7ff] border border-[#cce3ff] p-4 rounded-lg">  
 
       {/* Vehicle Info */}
       <div className="space-y-2">
@@ -1828,9 +1830,12 @@ export default function ServiceBookingFormPage({ vehicle }: ServiceBookingFormPa
           <p className="text-red-500 text-sm">{formErrors.selectedPackages}</p>
         )}
       </div>
+      </div>
 
       {/* Appointment Date/Time */}
-<div className="space-y-2">
+
+  <div className="bg-[#f0f7ff] border border-[#cce3ff] p-4 rounded-lg">     
+<div className="space-y-2">  
   <label>Appointment Date</label>
   <Input
     type="date"
@@ -1880,6 +1885,7 @@ export default function ServiceBookingFormPage({ vehicle }: ServiceBookingFormPa
           <p className="text-red-500 text-sm">{formErrors.lastKMReading}</p>
         )}
       </div>
+      </div>
 
       {/* Submit */}
  <Button className="w-full" onClick={handleSubmit}>
@@ -1887,5 +1893,6 @@ export default function ServiceBookingFormPage({ vehicle }: ServiceBookingFormPa
         </Button>
       </Card>
     </div>
+    
   );
 }
